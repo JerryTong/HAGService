@@ -102,6 +102,11 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssistanceController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\MissionController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -109,6 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Configurations\Data\Database.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\Data\DataCommend.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -118,8 +129,41 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HAG.Domain.Model\HAG.Domain.Model.csproj">
+      <Project>{0024795b-910d-431c-877d-8cb6317fdd2d}</Project>
+      <Name>HAG.Domain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Entity\HAG.Manager.Entity.csproj">
+      <Project>{0ad21f5e-4c81-4979-96a8-5fb9bc0ff6e1}</Project>
+      <Name>HAG.Manager.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Manager.Configuration\HAG.Manager.Configuration.csproj">
+      <Project>{1ed23938-50b7-4707-8527-d6ad2c09fc55}</Project>
+      <Name>HAG.Manager.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.Assistance\HAG.Service.Assistance.csproj">
+      <Project>{82fbec47-18df-4e63-8fca-06e1a2fceaf7}</Project>
+      <Name>HAG.Service.Assistance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.Customer\HAG.Service.Customer.csproj">
+      <Project>{b8ff845c-de6f-43a4-a4a7-42f5cac135d1}</Project>
+      <Name>HAG.Service.Customer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.Mission\HAG.Service.Mission.csproj">
+      <Project>{06f80cc7-9dc0-42bf-8548-9e81da303a4a}</Project>
+      <Name>HAG.Service.Mission</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.Search\HAG.Service.Search.csproj">
+      <Project>{65bbbe9b-2646-496f-b854-e9d5b8565a59}</Project>
+      <Name>HAG.Service.Search</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.Shop\HAG.Service.Shop.csproj">
+      <Project>{0fbfa5f0-bee4-4472-aef0-949892c470ef}</Project>
+      <Name>HAG.Service.Shop</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
