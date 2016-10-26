@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAG.Manager.Entity", "HAG.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAG.Manager.Configuration", "HAG.Manager.Configuration\HAG.Manager.Configuration.csproj", "{1ED23938-50B7-4707-8527-D6AD2C09FC55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAG.Service.MsgReqeust", "HAG.Service.MsgReqeust\HAG.Service.MsgReqeust.csproj", "{C191C67E-7E3F-4B37-A89C-BCD7C4CD5B07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{1ED23938-50B7-4707-8527-D6AD2C09FC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED23938-50B7-4707-8527-D6AD2C09FC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ED23938-50B7-4707-8527-D6AD2C09FC55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C191C67E-7E3F-4B37-A89C-BCD7C4CD5B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C191C67E-7E3F-4B37-A89C-BCD7C4CD5B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C191C67E-7E3F-4B37-A89C-BCD7C4CD5B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C191C67E-7E3F-4B37-A89C-BCD7C4CD5B07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

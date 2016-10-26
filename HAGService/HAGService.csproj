@@ -113,6 +113,7 @@
     <Compile Include="Controllers\AssistanceController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\MissionController.cs" />
+    <Compile Include="Controllers\MsgRequestController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -129,6 +130,7 @@
     </Content>
     <Content Include="Configurations\Data\DataCommend.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\HAGService_Local.pubxml" />
     <None Include="Web.Debug.config">
@@ -166,6 +168,10 @@
     <ProjectReference Include="..\HAG.Service.Mission\HAG.Service.Mission.csproj">
       <Project>{06f80cc7-9dc0-42bf-8548-9e81da303a4a}</Project>
       <Name>HAG.Service.Mission</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.MsgReqeust\HAG.Service.MsgReqeust.csproj">
+      <Project>{C191C67E-7E3F-4B37-A89C-BCD7C4CD5B07}</Project>
+      <Name>HAG.Service.MsgReqeust</Name>
     </ProjectReference>
     <ProjectReference Include="..\HAG.Service.Search\HAG.Service.Search.csproj">
       <Project>{65bbbe9b-2646-496f-b854-e9d5b8565a59}</Project>

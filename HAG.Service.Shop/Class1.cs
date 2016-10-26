@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Shop
 {
-    public class Class1
+    class Class1
     {
     }
 }
