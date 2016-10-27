@@ -17,5 +17,7 @@ namespace HAG.Domain.Model.Map
         public int MissionId { get; set; }
 
         public int Priority { get; set; }
+
+        public bool IsHighlight { get; set; }
     }
 }

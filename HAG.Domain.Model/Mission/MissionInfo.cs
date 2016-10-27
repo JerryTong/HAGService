@@ -10,7 +10,7 @@ namespace HAG.Domain.Model.Mission
     {
         public int MissionId { get; set; }
 
-        public int MemberId { get; set; }
+        public string MemberId { get; set; }
 
         public string Title { get; set; }
 

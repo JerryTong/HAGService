@@ -8,7 +8,7 @@ namespace HAG.Domain.Model.Request
 {
     public class MissionCreateRequest
     {
-        public int MemberId { get; set; }
+        public string MemberId { get; set; }
 
         public string Title { get; set; }
 
@@ -27,5 +27,10 @@ namespace HAG.Domain.Model.Request
         public int Star { get; set; }
 
         public string Contact { get; set; }
+
+        /// <summary>
+        /// 使用道具
+        /// </summary>
+        public string PropIds { get; set; }
     }
 }

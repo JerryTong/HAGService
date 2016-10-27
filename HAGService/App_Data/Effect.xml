@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Id" type="xs:int" minOccurs="0" />
+                <xs:element name="Name" type="xs:string" minOccurs="0" />
+				<xs:element name="Description" type="xs:string" minOccurs="0" />
+				<xs:element name="Minute" type="xs:int" minOccurs="0" />
+				<xs:element name="Image" type="xs:string" minOccurs="0" />
+				<xs:element name="Cost" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table>
+    <Id>1001</Id>
+	<Name>超人披風</Name>
+	<Description>超人披風超人披風</Description>
+	<Minute>30</Minute>
+	<Image>tag-maintain.png</Image>
+	<Cost>30</Cost>
+  </Table>
+  <Table>
+    <Id>1002</Id>
+	<Name>超人內褲</Name>
+	<Description>超人內褲超人內褲</Description>
+	<Minute>30</Minute>
+	<Image>tag-maintain.png</Image>
+	<Cost>30</Cost>
+  </Table>
+  <Table>
+    <Id>1003</Id>
+	<Name>超人電話亭</Name>
+	<Description>超人電話亭超人電話亭</Description>
+	<Minute>30</Minute>
+	<Image>tag-maintain.png</Image>
+	<Cost>30</Cost>
+  </Table>
+  <Table>
+    <Id>1004</Id>
+	<Name>超人手錶</Name>
+	<Description>超人手錶超人手錶</Description>
+	<Minute>30</Minute>
+	<Image>tag-maintain.png</Image>
+	<Cost>30</Cost>
+  </Table>
+</NewDataSet>

@@ -1,4 +1,5 @@
-﻿using HAG.Domain.Model.Request;
+﻿using HAG.Domain.Model.Mission;
+using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Service.Mission;
 using System;

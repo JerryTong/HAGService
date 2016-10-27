@@ -16,11 +16,11 @@ namespace HAG.Domain.Model.Enum
         /// <summary>
         /// Something fail.
         /// </summary>
-        Failure,
+        Failure = -1,
 
         /// <summary>
         /// An attempt was made to perform an illegal or unsupported operation with the device, or an invalid parameter value was used.
         /// </summary>
-        Illegal,
+        Illegal = -2,
     }
 }

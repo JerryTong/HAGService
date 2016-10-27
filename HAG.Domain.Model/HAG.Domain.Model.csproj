@@ -44,9 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer\MemberInfo.cs" />
     <Compile Include="Enum\StatusCode.cs" />
     <Compile Include="Map\MapMakerInfo.cs" />
     <Compile Include="MissionMessage\CheckMissionInfo.cs" />
+    <Compile Include="Request\MemberRegisterRequest.cs" />
+    <Compile Include="Shop\EffectInfo.cs" />
     <Compile Include="Mission\MissionInfo.cs" />
     <Compile Include="MissionMessage\MissionMessageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

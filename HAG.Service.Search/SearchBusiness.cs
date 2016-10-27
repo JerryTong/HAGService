@@ -14,7 +14,7 @@ namespace HAG.Service.Search
         public SearchResponse Search(SearchReqeust request)
         {
             SearchResponse response = new SearchResponse();
-            response.MapMakers = GetMapMakerInfo();
+            response.MapMakers = GetMapMakerInfo().Take(request.MaxSize).ToList();
             response.TotalResult = response.MapMakers.Count;
             response.StatusCode = Domain.Model.Enum.StatusCode.Success;
 
@@ -35,6 +35,8 @@ namespace HAG.Service.Search
             Random ranLat = new Random();
             Random ranLon = new Random();
             Random ranType = new Random();
+            Random ranHigh = new Random();
+
             for (int i = 0; i < 500; i++)
             {
                 float tmpLatitude = (float)(24 + (ranLat.Next(125003, 241394) * 0.000001));
@@ -46,10 +48,12 @@ namespace HAG.Service.Search
                     Longitude = Longitude,
                     MissionId = 100000,
                     MissionType = ranType.Next(1, 4),
+                    IsHighlight = ranHigh.Next(1, 10) == 1 ? true : false,
                     Priority = 1,
                 });
             }
 
+            result = result.OrderBy(r => r.IsHighlight).ToList();
             return result;
         }
     }
