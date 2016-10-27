@@ -14,14 +14,14 @@ namespace HAG.Service.Search
         public SearchResponse Search(SearchReqeust request)
         {
             SearchResponse response = new SearchResponse();
-            response.MapMakers = GetMapMakerInfo().Take(request.MaxSize).ToList();
+            response.MapMakers = GetMapMakerInfo(request.MaxSize);
             response.TotalResult = response.MapMakers.Count;
             response.StatusCode = Domain.Model.Enum.StatusCode.Success;
 
             return response;
         }
 
-        private List<MapMakerInfo> GetMapMakerInfo()
+        private List<MapMakerInfo> GetMapMakerInfo(int maxSize)
         {
             //24.236182, 120.724037
             //    24.125003, 120.713217
@@ -32,12 +32,12 @@ namespace HAG.Service.Search
 
             List<MapMakerInfo> result = new List<MapMakerInfo>();
 
-            Random ranLat = new Random();
-            Random ranLon = new Random();
-            Random ranType = new Random();
-            Random ranHigh = new Random();
+            Random ranLat = new Random(Guid.NewGuid().GetHashCode());
+            Random ranLon = new Random(Guid.NewGuid().GetHashCode());
+            Random ranType = new Random(Guid.NewGuid().GetHashCode());
+            Random ranHigh = new Random(Guid.NewGuid().GetHashCode());
 
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < maxSize; i++)
             {
                 float tmpLatitude = (float)(24 + (ranLat.Next(125003, 241394) * 0.000001));
                 float Longitude = (float)(120 + (ranLat.Next(541127, 724039) * 0.000001));
@@ -48,7 +48,7 @@ namespace HAG.Service.Search
                     Longitude = Longitude,
                     MissionId = 100000,
                     MissionType = ranType.Next(1, 4),
-                    IsHighlight = ranHigh.Next(1, 10) == 1 ? true : false,
+                    IsHighlight = ranHigh.Next(1, 10) > 4 ? true : false,
                     Priority = 1,
                 });
             }
