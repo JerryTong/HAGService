@@ -12,7 +12,7 @@ using System.Web.Http.Cors;
 namespace HAGService.Controllers
 {
     [EnableCors("*", "*", "*")]
-    public class MsgRequestController : ApiController
+    public class MessageController : ApiController
     {
         /// <summary>
         /// 請求
@@ -45,6 +45,13 @@ namespace HAGService.Controllers
         public MissionMsgReqesutResponse Messages(int missionId)
         {
             return new MsgReqeustBusiness().GetMsgReqeustList(missionId);
+        }
+
+        [HttpGet]
+        [Route("api/request/notice/{memberId}")]
+        public MessageNoticeResponse Notic(string memberId)
+        {
+            return new MsgReqeustBusiness().GetNoticeMsgReqeust(memberId);
         }
     }
 }

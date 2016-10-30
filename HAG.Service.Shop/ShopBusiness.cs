@@ -1,4 +1,6 @@
-﻿using HAG.Domain.Model.Shop;
+﻿using HAG.Domain.Model.Request;
+using HAG.Domain.Model.Response;
+using HAG.Domain.Model.Shop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,22 @@ namespace HAG.Service.Shop
         public List<EffectInfo> GetEffectList()
         {
             return shopDA.GetEffectList();
+        }
+
+        /// <summary>
+        /// 購買道具
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public ResponseStatus BuyEffect(ShopByEffectRequest request)
+        {
+            if (string.IsNullOrEmpty(request.MemberId))
+            {
+                return null;
+            }
+
+            var response = shopDA.UseEffect(request.MemberId, request.EffectId, 1);
+            return response;
         }
     }
 }

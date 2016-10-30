@@ -12,6 +12,8 @@ namespace HAG.Domain.Model.Mission
 
         public string MemberId { get; set; }
 
+        public string SuperManId { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -55,7 +57,7 @@ namespace HAG.Domain.Model.Mission
         public DateTime ResolveTime { get; set; }
 
         /// <summary>
-        /// 任務狀態 W:Wait, A:已媒合解決中, F:任務已完成, D:任務已過期或刪除
+        /// 任務狀態 W:Wait, R:已媒合解決中, F:任務已完成, D:任務已過期或刪除
         /// </summary>
         public char Status { get; set; }
     }

@@ -18,7 +18,7 @@ namespace HAG.Service.MsgReqeust
         /// </summary>
         /// <param name="missionId"></param>
         /// <param name="memberId"></param>
-        public CheckMissionInfo GetCheckMissionMsgAsk(int missionId, int memberId)
+        public CheckMissionInfo GetCheckMissionMsgAsk(int missionId, string memberId)
         {
             var dataCommend = DataCommandAccessor.Get("CheckMissionMsgAsk");
 
@@ -114,7 +114,7 @@ namespace HAG.Service.MsgReqeust
                 }
                 catch (Exception ex)
                 {
-                    
+
                 }
                 finally
                 {
@@ -148,9 +148,9 @@ namespace HAG.Service.MsgReqeust
                     command.Parameters.AddWithValue("@MessageDetail", reqInfo.MessageDetail);
                     command.Parameters.AddWithValue("@MissionId", reqInfo.MissionId);
                     command.Parameters.AddWithValue("@ParentMessageId", reqInfo.ParentMessageId);
-                    
+
                     rowsAffected = command.ExecuteNonQuery();
-                    connection.Close();   
+                    connection.Close();
                 }
                 catch (Exception ex)
                 {
@@ -224,7 +224,7 @@ namespace HAG.Service.MsgReqeust
 
                     command.Parameters.AddWithValue("@Accept", accept);
                     command.Parameters.AddWithValue("@MissionMessageId", missionMessageId);
-  
+
                     rowsAffected = command.ExecuteNonQuery();
                     connection.Close();
                 }
@@ -240,15 +240,16 @@ namespace HAG.Service.MsgReqeust
 
             return rowsAffected;
         }
-
+        
         /// <summary>
-        /// 更新任務狀態
+        /// 獲取特定時間點後的消息(未讀訊息)
         /// </summary>
-        /// <param name="status"></param>
+        /// <param name="memberId"></param>
+        /// <param name="date"></param>
         /// <returns></returns>
-        public int UpdateMissionStatus(int missionId, string status)
+        public List<MissionMessageInfo> GetNoticeMsgRequest(string memberId, DateTime askDate, DateTime answerDate)
         {
-            var dataCommend = DataCommandAccessor.Get("UpdateMissionStatus");
+            var dataCommend = DataCommandAccessor.Get("GetNoticeMsgReqeust");
 
             using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
             {
@@ -256,22 +257,27 @@ namespace HAG.Service.MsgReqeust
                 try
                 {
                     connection.Open();
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+                    command.Parameters.AddWithValue("@AskDate", askDate);
+                    command.Parameters.AddWithValue("@AnswerDate", answerDate);
 
-                    command.Parameters.AddWithValue("@Status", status);
-                    command.Parameters.AddWithValue("@MissionId", missionId);
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
 
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    connection.Close();
-                    return rowsAffected;
+                    return DataTableAccessor.ToCollection<MissionMessageInfo>(dt);
                 }
                 catch (Exception ex)
+                {
+
+                }
+                finally
                 {
                     connection.Close();
                 }
             }
 
-            return -1;
+            return null;
         }
     }
 }

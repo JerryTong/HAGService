@@ -1,6 +1,7 @@
 ﻿using HAG.Domain.Model.MissionMessage;
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
+using HAG.Entity;
 using HAG.Service.Mission;
 using System;
 using System.Collections.Generic;
@@ -177,7 +178,7 @@ namespace HAG.Service.MsgReqeust
                 };
             }
 
-            // 更新請求訊息狀態
+            // 更新"請求ASK"訊息狀態
             int updateCode = msgReqeustDataAccess.UpdateMsgReqeustAsk(request.Ref_MsgReqeustId, request.Accept);
             if (code != 1)
             {
@@ -189,25 +190,47 @@ namespace HAG.Service.MsgReqeust
                 };
             }
 
-
-            if (request.Accept == 1)
-            {
-                // 更新任務狀態 'A'
-                int updateMissionCode = msgReqeustDataAccess.UpdateMissionStatus(request.MissionId, "A");
-                if (code != 1)
-                {
-                    return new MissionMsgReqesutResponse
-                    {
-                        MissionStatus = checkInfo.Status,
-                        StatusCode = Domain.Model.Enum.StatusCode.Failure,
-                        Message = "Update mission status Error.",
-                    };
-                }
-            }
-
             MissionMsgReqesutResponse response = new MissionMsgReqesutResponse();
             response.StatusCode = Domain.Model.Enum.StatusCode.Success;
             response.MissionStatus = checkInfo.Status;
+
+            return response;
+        }
+
+        /// <summary>
+        /// 獲取未讀訊息數量
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public MessageNoticeResponse GetNoticeMsgReqeust(string memberId)
+        {
+            DateTime askDateTime = new DateTime(2000, 1, 1);
+            DateTime answerDateTime = new DateTime(2000, 1, 1); 
+
+            string askCache = RedisClient.GetValue(memberId + "_NoitcAsk");
+            string answerCache = RedisClient.GetValue(memberId + "_NoitcAnswer");
+            if (!string.IsNullOrEmpty(askCache))
+            {
+                askDateTime = DateTime.Parse(askCache);
+            }
+
+            if (!string.IsNullOrEmpty(answerCache))
+            {
+                answerDateTime = DateTime.Parse(answerCache);
+            }
+
+            MsgReqeustDataAccess msgReqeustDataAccess = new MsgReqeustDataAccess();
+            var msgResponse = msgReqeustDataAccess.GetNoticeMsgRequest(memberId, askDateTime, answerDateTime);
+
+            if(msgResponse == null || msgResponse.Count == 0)
+            {
+                return new MessageNoticeResponse();
+            }
+
+            var response = new MessageNoticeResponse();
+            response.Help = msgResponse.Where(m => m.MessageType == 2).Count();
+            response.Give = msgResponse.Where(m => m.MessageType == 1).Count();
 
             return response;
         }

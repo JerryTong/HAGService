@@ -1,8 +1,7 @@
 ﻿using Fox.Framework.DataAccess;
 using Fox.Framework.Entity;
 using HAG.Domain.Model.Customer;
-using HAG.Domain.Model.Request;
-using HAG.Manager.Configuration;
+using HAG.Domain.Model.Mission;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,18 +10,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAG.Service.Customer
+namespace HAG.Service.Profile
 {
-    public class CustomerDataAccess
+    public class ProfileDataAccess
     {
         /// <summary>
-        /// 註冊會員
+        /// 獲取會員[發起的任務] 
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="missionIds"></param>
         /// <returns></returns>
-        public int Register(MemberRegisterRequest request)
+        public List<MissionInfo> GetHelpMissionByMemberId(string memberId, List<string> status)
         {
-            var dataCommend = DataCommandAccessor.Get("RegisterMember");
+            var dataCommend = DataCommandAccessor.Get("GetHelpMissionByMemberId");
 
             using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
             {
@@ -30,89 +29,18 @@ namespace HAG.Service.Customer
                 try
                 {
                     connection.Open();
-
-                    command.Parameters.AddWithValue("@MemberId", request.MemberId);
-                    command.Parameters.AddWithValue("@Name", request.Name);
-                    command.Parameters.AddWithValue("@Description", request.Description);
-                    command.Parameters.AddWithValue("@Phone", request.Phone);
-                    command.Parameters.AddWithValue("@Line", request.Line);
-                    command.Parameters.AddWithValue("@Email", request.Email);
-                    command.Parameters.AddWithValue("@Image", request.Image);
-
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    connection.Close();
-                    return rowsAffected;
-                }
-                catch (Exception ex)
-                {
-                    connection.Close();
-                }
-            }
-
-            return -1;
-        }
-        
-        /// <summary>
-        /// 建構會員相關基礎表
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public int RegisterMemberExtra(MemberRegisterRequest request)
-        {
-            var dataCommend = DataCommandAccessor.Get("CreateHAGMemberExtra");
-
-            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
-            {
-                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
-                try
-                {
-                    connection.Open();
-
-                    command.Parameters.AddWithValue("@MemberId", request.MemberId);
-                    command.Parameters.AddWithValue("@Star", BizConfigManager.Current.RegisterEgg);
-
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    connection.Close();
-                    return rowsAffected;
-                }
-                catch (Exception ex)
-                {
-                    connection.Close();
-                }
-            }
-
-            return -1;
-        }
-
-        /// <summary>
-        /// GetMemberBaseInfo
-        /// </summary>
-        /// <param name="memberId"></param>
-        /// <returns></returns>
-        public MemberInfo GetMemberBaseInfo(string memberId)
-        {
-            var dataCommend = DataCommandAccessor.Get("GetMemberBaseInfo");
-
-            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
-            {
-                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
-                try
-                {
-                    connection.Open();
-
                     command.Parameters.AddWithValue("@MemberId", memberId);
+                    SqlCommandEntity.AddWithGroupValue(command, "Status", status);
 
                     var reader = command.ExecuteReader();
                     DataTable dt = new DataTable();
                     dt.Load(reader);
 
-                    return DataTableAccessor.ToCollection<MemberInfo>(dt)[0];
+                    return DataTableAccessor.ToCollection<MissionInfo>(dt);
                 }
                 catch (Exception ex)
                 {
-                    connection.Close();
+
                 }
                 finally
                 {
@@ -122,6 +50,44 @@ namespace HAG.Service.Customer
 
             return null;
         }
+
+        /// <summary>
+        /// 獲取會員[接受的任務] 
+        /// </summary>
+        /// <param name="missionIds"></param>
+        /// <returns></returns>
+        public List<MissionInfo> GetGiveMissionByMemberId(string memberId, List<string> status)
+        {
+            var dataCommend = DataCommandAccessor.Get("GetGiveMissionByMemberId");
+
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+                    SqlCommandEntity.AddWithGroupValue(command, "Status", status);
+
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    return DataTableAccessor.ToCollection<MissionInfo>(dt);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
+
 
         /// <summary>
         /// 獲取會員獎章
@@ -145,6 +111,42 @@ namespace HAG.Service.Customer
                     dt.Load(reader);
 
                     return DataTableAccessor.ToCollection<MemberMedalInfo>(dt);
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 獲取會員道具
+        /// </summary>
+        /// <param name="memberIds"></param>
+        /// <returns></returns>
+        public List<MemberEffectInfo> GetMemberEffectInfo(string memberId)
+        {
+            var dataCommend = DataCommandAccessor.Get("GetMemberEffectInfo");
+
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+                    
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    return DataTableAccessor.ToCollection<MemberEffectInfo>(dt);
                 }
                 catch (Exception ex)
                 {

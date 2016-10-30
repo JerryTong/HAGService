@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAG.Service.Assistance
+namespace HAG.Domain.Model.Enum
 {
-    public class Class1
+    public enum EffectType
     {
+        Immediately = 1,
+        MissionOnly = 2
     }
 }

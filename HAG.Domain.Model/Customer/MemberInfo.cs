@@ -17,9 +17,21 @@ namespace HAG.Domain.Model.Customer
 
         public string Email { get; set; }
 
+        public string Phone { get; set; }
+
+        public string Line { get; set; }
+
         public string Image { get; set; }
 
         [DataMapping("InDate")]
         public DateTime RegisterDate { get; set; }
+
+        public int Star { get; set; }
+
+        public int Good { get; set; }
+
+        public int Bad { get; set; }
+
+        public int Login { get; set; }
     }
 }

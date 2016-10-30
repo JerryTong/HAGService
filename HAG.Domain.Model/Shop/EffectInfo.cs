@@ -1,4 +1,5 @@
 ﻿using Fox.Framework.Entity;
+using HAG.Domain.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,40 @@ namespace HAG.Domain.Model.Shop
 {
     public class EffectInfo
     {
-        [DataMapping("Id")]
-        public int Id { get; set; }
+        public int EffectId { get; set; }
 
-        [DataMapping("Name")]
-        public string Name { get; set; }
+        public string EffectName { get; set; }
 
-        [DataMapping("Description")]
-        public string Description { get; set; }
+        public string EffectDescription { get; set; }
 
-        [DataMapping("Minute")]
-        public int Minute { get; set; }
+        public int EffectMinute { get; set; }
 
-        [DataMapping("Image")]
+        [DataMapping("EffectType")]
+        public int InternalEffectType
+        {
+            set
+            {
+                switch (value)
+                {
+                    case 1:
+                        this.ReadEffectType = EffectType.MissionOnly;
+                        break;
+                    case 2:
+                        this.ReadEffectType = EffectType.Immediately;
+                        break;
+                    default:
+                        this.ReadEffectType = EffectType.MissionOnly;
+                        break;
+                }
+            }
+        }
+
+        public EffectType ReadEffectType { get; set; }
+
         public string Image { get; set; }
 
-        [DataMapping("Cost")]
         public int Cost { get; set; }
+
+        public bool Active { get; set; }
     }
 }

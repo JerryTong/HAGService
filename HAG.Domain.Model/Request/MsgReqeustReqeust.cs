@@ -11,7 +11,7 @@ namespace HAG.Domain.Model.Request
         /// <summary>
         /// 會員ID
         /// </summary>
-        public int MemberId { get; set; }
+        public string MemberId { get; set; }
 
         /// <summary>
         /// 訊息標題

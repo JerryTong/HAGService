@@ -1,4 +1,5 @@
 ﻿using Fox.Framework.Entity;
+using HAG.Domain.Model.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace HAG.Domain.Model.MissionMessage
         [DataMapping("TransactionNumber")]
         public int MessageId { get; set; }
 
-        public int MemberId { get; set; }
+        public string MemberId { get; set; }
+
+        public MemberInfo MemberInfo { get; set; }
 
         /// <summary>
         /// MessageType: [0]-Message, [1]-MissionAsk, [2]-MissionAnswer
