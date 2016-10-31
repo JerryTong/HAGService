@@ -25,9 +25,16 @@ namespace HAGService.Controllers
 
         [HttpPost]
         [Route("api/shop/effect/buy")]
-        public ResponseStatus Buy([FromBody] ShopByEffectRequest request)
+        public ResponseStatus BuyEffect([FromBody] ShopByEffectRequest request)
         {
             return new ShopBusiness().BuyEffect(request);
+        }
+
+        [HttpPost]
+        [Route("api/shop/effect/Use")]
+        public ResponseStatus UseEffect([FromBody] ShopUseEffectRequest request)
+        {
+            return new ShopBusiness().UseEffect(request);
         }
     }
 }

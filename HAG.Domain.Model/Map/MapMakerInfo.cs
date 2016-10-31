@@ -19,5 +19,7 @@ namespace HAG.Domain.Model.Map
         public int Priority { get; set; }
 
         public bool IsHighlight { get; set; }
+
+        public DateTime Highlight { get; set; }
     }
 }

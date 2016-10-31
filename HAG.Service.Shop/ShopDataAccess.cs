@@ -27,7 +27,7 @@ namespace HAG.Service.Shop
         /// 使用道具
         /// </summary>
         /// <returns></returns>
-        public ResponseStatus UseEffect(string memberId, int effectId, int count)
+        public ResponseStatus BuyEffect(string memberId, int effectId, int count)
         {
             var dataCommend = DataCommandAccessor.Get("UpdateMemberEffect");
 
@@ -59,6 +59,37 @@ namespace HAG.Service.Shop
             }
 
             return null;
+        }
+
+        public int UseEffect(int missionId, string memberId, int effectId)
+        {
+            var dataCommend = DataCommandAccessor.Get("UseEffectByMission");
+
+            int rowsAffected;
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+
+                    command.Parameters.AddWithValue("@MissionId", missionId);
+                    command.Parameters.AddWithValue("@Date", DateTime.Now.AddMinutes(30));
+
+                    rowsAffected = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    rowsAffected = -1;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return rowsAffected;
         }
     }
 }

@@ -11,12 +11,54 @@ namespace HAG.Service.Search
 {
     public class SearchBusiness
     {
+        private SearchDataAccess searchDA = new SearchDataAccess();
         public SearchResponse Search(SearchReqeust request)
+        {
+            SearchResponse response = new SearchResponse();
+            response.MapMakers = GetMapMakerInfo(request.Latitude, request.Longitude, request.MaxSize, request.MissionType);
+            response.TotalResult = response.MapMakers != null ? response.MapMakers.Count : 0;
+            response.StatusCode = Domain.Model.Enum.StatusCode.Success;
+
+            return response;
+        }
+
+        public SearchResponse SearchTest(SearchReqeust request)
         {
             SearchResponse response = new SearchResponse();
             response.MapMakers = GetMapMakerInfo(request.MaxSize);
             response.TotalResult = response.MapMakers.Count;
             response.StatusCode = Domain.Model.Enum.StatusCode.Success;
+
+            return response;
+        }
+
+        public List<MapMakerInfo> GetMapMakerInfo(float Latitude, float Longitude, int maxSize, int missionType)
+        {
+            List<string> pameterMissionType = null;
+            if (missionType != 0)
+            {
+                pameterMissionType = new List<string>() { missionType.ToString() };
+            }
+            else
+            {
+                pameterMissionType = new List<string>() { "1001", "1002", "1003", "1004", "1005" };
+            }
+
+            var response = searchDA.GetMapMakerInfo(Latitude, Longitude, maxSize, pameterMissionType);
+            if (response == null)
+            {
+                return null;
+            }
+
+            response.ForEach(r =>
+            {
+                if(r.Highlight.AddMinutes(3) > DateTime.Now)
+                {
+                    r.IsHighlight = true;
+                }
+            });
+
+            response = response.OrderBy(r => r.IsHighlight).Take(maxSize).ToList();
 
             return response;
         }

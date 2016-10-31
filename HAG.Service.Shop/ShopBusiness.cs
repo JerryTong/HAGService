@@ -34,7 +34,36 @@ namespace HAG.Service.Shop
                 return null;
             }
 
-            var response = shopDA.UseEffect(request.MemberId, request.EffectId, 1);
+            var response = shopDA.BuyEffect(request.MemberId, request.EffectId, 1);
+            return response;
+        }
+
+        public ResponseStatus UseEffect(ShopUseEffectRequest request)
+        {
+            if (string.IsNullOrEmpty(request.MemberId))
+            {
+                return null;
+            }
+
+            var response = new ResponseStatus();
+            if (request.EffectId == 5001)
+            {
+                var code = shopDA.UseEffect(request.MissionId, request.MemberId, request.EffectId);
+                if(code == 1)
+                {
+                    response.StatusCode = Domain.Model.Enum.StatusCode.Success;
+                }
+                else
+                {
+                    response.StatusCode = Domain.Model.Enum.StatusCode.Failure;
+                }
+            }
+            else
+            {
+                response.StatusCode = Domain.Model.Enum.StatusCode.Illegal;
+                response.Message = "NOT WORK.";
+            }
+            
             return response;
         }
     }

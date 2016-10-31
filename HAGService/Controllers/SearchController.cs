@@ -15,6 +15,13 @@ namespace HAGService.Controllers
     public class SearchController : ApiController
     {
         [HttpGet]
+        [Route("api/search/searchtest")]
+        public SearchResponse SearchTest([FromUri]SearchReqeust request)
+        {
+            return new SearchBusiness().SearchTest(request);
+        }
+
+        [HttpGet]
         [Route("api/search/search")]
         public SearchResponse Search([FromUri]SearchReqeust request)
         {
