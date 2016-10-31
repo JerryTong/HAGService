@@ -25,8 +25,8 @@
     <MedaId>G-001</MedaId>
 	<MedalName>居家 / 除蟲 [金]</MedalName>
 	<MedalDescription>居家除蟲高手 完成{0}次</MedalDescription>
-	<MedalLimit>30</MedalLimit>
-	<Active>tag-maintain.png</Active>
+	<MedalLimit>100</MedalLimit>
+	<Active>1</Active>
 	<Image>30</Image>
 	<MedaGroupId></MedaGroupId>
   </Table>

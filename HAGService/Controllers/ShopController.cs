@@ -1,6 +1,7 @@
 ﻿using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Domain.Model.Shop;
+using HAG.Service.Assistance;
 using HAG.Service.Shop;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace HAGService.Controllers
         [Route("api/shop/effect")]
         public List<EffectInfo> EffectList()
         {
-            return new ShopBusiness().GetEffectList();
+            return new AssistanceBusiness().GetEffectInfo();
         }
 
         [HttpPost]

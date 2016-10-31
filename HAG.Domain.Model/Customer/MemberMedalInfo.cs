@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace HAG.Domain.Model.Customer
 {
-    public class MemberMedalInfo
+    public class MemberMedalInfo : MedalInfo
     {
         public string MemberId { get; set; }
-
-        public int MedalGroupId { get; set; }
 
         public int Score { get; set; }
 
         public bool Achieve { get; set; }
-
-        public MedalInfo MedalInfo { get; set; }
     }
 }

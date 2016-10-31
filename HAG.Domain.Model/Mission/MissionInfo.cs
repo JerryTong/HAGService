@@ -14,6 +14,11 @@ namespace HAG.Domain.Model.Mission
 
         public string SuperManId { get; set; }
 
+        /// <summary>
+        /// 超人應徵總數
+        /// </summary>
+        public string Applicants { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

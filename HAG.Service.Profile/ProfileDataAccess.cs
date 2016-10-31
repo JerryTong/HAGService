@@ -90,13 +90,13 @@ namespace HAG.Service.Profile
 
 
         /// <summary>
-        /// 獲取會員獎章
+        /// 獲取會員獎章(含未獲得獎章)
         /// </summary>
         /// <param name="memberIds"></param>
         /// <returns></returns>
-        public List<MemberMedalInfo> GetMemberMedalInfo(List<string> memberIds)
+        public List<MemberMedalInfo> GetProfileMemberMedalInfo(List<string> memberIds)
         {
-            var dataCommend = DataCommandAccessor.Get("GetMemberMedalInfo");
+            var dataCommend = DataCommandAccessor.Get("GetProfileMemberMedalInfo");
 
             using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
             {
@@ -104,7 +104,7 @@ namespace HAG.Service.Profile
                 try
                 {
                     connection.Open();
-                    SqlCommandEntity.AddWithGroupValue(command, "MemberId", memberIds);
+                    SqlCommandEntity.AddWithGroupValue(command, "MemberIds", memberIds);
 
                     var reader = command.ExecuteReader();
                     DataTable dt = new DataTable();

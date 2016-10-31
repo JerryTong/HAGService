@@ -14,6 +14,10 @@ namespace HAG.Service.Assistance
 {
     public class AssistanceDataAcces
     {
+        /// <summary>
+        /// 獲取獎章
+        /// </summary>
+        /// <returns></returns>
         public List<MedalInfo> GetMedalInfo()
         {
             var dataCommend = DataCommandAccessor.Get("GetMedalInfo");
@@ -44,6 +48,82 @@ namespace HAG.Service.Assistance
             return null;
         }
 
+        /// <summary>
+        /// 獲取會員獎章積分
+        /// </summary>
+        /// <param name="memberIds"></param>
+        /// <returns></returns>
+        public List<MemberMedalInfo> GetMemberMedalListInfo(List<string> memberIds)
+        {
+            var dataCommend = DataCommandAccessor.Get("GetMemberMedalInfo");
+
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+                    SqlCommandEntity.AddWithGroupValue(command, "MemberIds", memberIds);
+
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    return DataTableAccessor.ToCollection<MemberMedalInfo>(dt);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 獲取多筆會員基本資訊
+        /// </summary>
+        /// <param name="memberIds"></param>
+        /// <returns></returns>
+        public List<MemberInfo> GetMemberListInfo(List<string> memberIds)
+        {
+            var dataCommend = DataCommandAccessor.Get("GetMemberBaseListInfo");
+
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+                    SqlCommandEntity.AddWithGroupValue(command, "MemberIds", memberIds);
+
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    return DataTableAccessor.ToCollection<MemberInfo>(dt);
+                }
+                catch (Exception ex)
+                {
+                    connection.Close();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 獲取道具
+        /// </summary>
+        /// <returns></returns>
         public List<EffectInfo> GetEffectInfo()
         {
             var dataCommend = DataCommandAccessor.Get("GetEffectInfo");

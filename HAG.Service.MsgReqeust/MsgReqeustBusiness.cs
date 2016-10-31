@@ -2,6 +2,7 @@
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Entity;
+using HAG.Service.Assistance;
 using HAG.Service.Mission;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,34 @@ namespace HAG.Service.MsgReqeust
             });
 
             response.MsgReqeustList = askMsg.ToList();
+
+            if(response.MsgReqeustList != null)
+            {
+                AssistanceBusiness assistanceBL = new AssistanceBusiness();
+                var memberList = response.MsgReqeustList.Select(m => m.MemberId).ToList();
+                var memberListInfo = assistanceBL.GetMemberListInfo(memberList);
+                var memberMedalInfo = assistanceBL.GetMemberMedalListInfo(memberList);
+
+                if(memberListInfo != null && memberListInfo.Count > 0)
+                {
+                    response.MsgReqeustList.ForEach(m =>
+                    {
+                        m.MemberInfo = memberListInfo.FirstOrDefault(me => me.MemberId == m.MemberId);
+                    });
+                }
+
+                if (memberMedalInfo != null && memberMedalInfo.Count > 0)
+                {
+                    response.MsgReqeustList.ForEach(m =>
+                    {
+                        if (m.MemberInfo != null)
+                        {
+                            m.MemberInfo.MemberMedalInfo = memberMedalInfo.ContainsKey(m.MemberId) ? memberMedalInfo[m.MemberId] : null;
+                            m.MemberInfo.MemberMedalInfo = m.MemberInfo.MemberMedalInfo.OrderBy(mm => mm.Priority).ThenBy(mm => mm.MedalLimit).ToList();
+                        }
+                    });
+                }
+            }
 
             return response;
         }

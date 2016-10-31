@@ -46,7 +46,7 @@ namespace HAGService.Controllers
         [Route("api/profile/medal/{memberId}")]
         public List<MemberMedalInfo> GetMemberMedalInfo([FromUri] string memberId)
         {
-            return new ProfileBusiness().GetMemberMedalInfo(memberId);
+            return new ProfileBusiness().GetProfileMemberMedalInfo(memberId);
         }
 
         [HttpGet]

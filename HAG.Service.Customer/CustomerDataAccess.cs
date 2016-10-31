@@ -52,6 +52,45 @@ namespace HAG.Service.Customer
 
             return -1;
         }
+
+        public int Login(string memberId, string email)
+        {
+            var dataCommend = DataCommandAccessor.Get("GetMemberLogin");
+
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+                    command.Parameters.AddWithValue("@Email", email);
+
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    var tmp = DataTableAccessor.ToCollection<MemberInfo>(dt)[0];
+                    if(tmp == null)
+                    {
+                        return -1;
+                    }
+
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    connection.Close();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return -1;
+        }
         
         /// <summary>
         /// 建構會員相關基礎表
@@ -124,7 +163,7 @@ namespace HAG.Service.Customer
         }
 
         /// <summary>
-        /// 獲取會員獎章
+        /// 獲取會員獎章積分
         /// </summary>
         /// <param name="memberIds"></param>
         /// <returns></returns>
@@ -138,7 +177,7 @@ namespace HAG.Service.Customer
                 try
                 {
                     connection.Open();
-                    SqlCommandEntity.AddWithGroupValue(command, "MemberId", memberIds);
+                    SqlCommandEntity.AddWithGroupValue(command, "MemberIds", memberIds);
 
                     var reader = command.ExecuteReader();
                     DataTable dt = new DataTable();

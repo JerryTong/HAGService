@@ -68,40 +68,38 @@ namespace HAG.Service.Customer
             var response = new List<MemberMedalInfo>();
             if (memberMedalInfo != null && memberMedalInfo.Count > 0)
             {
-                memberMedalInfo.ForEach(r =>
-                {
-                    var targetMedal = medalInfoList.Where(m => m.MedalGroupId == r.MedalGroupId);
-                    if (targetMedal != null && targetMedal.Count() > 0)
-                    {
-                        targetMedal.ToList().ForEach(t =>
-                        {
-                            // 比分數
-                            if (r.Score >= t.MedalLimit)
-                            {
-                                response.Add(new MemberMedalInfo
-                                {
-                                    MedalGroupId = r.MedalGroupId,
-                                    MemberId = r.MemberId,
-                                    Score = r.Score,
-                                    Achieve = true,
-                                    MedalInfo = new MedalInfo
-                                    {
-                                        MedalId = t.MedalId,
-                                        MedalLimit = t.MedalLimit,
-                                        MedalDescription = t.MedalDescription,
-                                        MedalGroupId = t.MedalGroupId,
-                                        MedalName = t.MedalName,
-                                        Active = t.Active,
-                                        Image = t.Image
-                                    },
-                                });
-                            }
-                        });
-                    }
-                });
+                response.AddRange(memberMedalInfo);
             }
 
+            response = response.OrderBy(m => m.Priority).ThenBy(m => m.MedalLimit).ToList();
             return response;
+        }
+
+        /// <summary>
+        /// 獲取會員詳細資訊
+        /// </summary>
+        /// <param name="memberIds"></param>
+        /// <returns></returns>
+        public List<MemberInfo> GetMemberDetailInfo(List<string> memberIds)
+        {
+
+            return null;
+        }
+
+        /// <summary>
+        /// 會員登入
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public int Login(string memberId, string email)
+        {
+            if(string.IsNullOrEmpty(memberId) && string.IsNullOrEmpty(email))
+            {
+                return -1;
+            }
+
+            return customerDA.Login(memberId, email);
         }
     }
 }

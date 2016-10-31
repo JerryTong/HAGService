@@ -30,6 +30,19 @@ namespace HAGService.Controllers
             return new CustomerBusiness().Register(request);
         }
 
+        /// <summary>
+        /// 會員登入
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/member/login")]
+        public int Login(string memberId = "", string email = "")
+        {
+            return new CustomerBusiness().Login(memberId, email);
+        }
+
         [HttpGet]
         [Route("api/member/{memberId}")]
         public MemberInfo GetMemberInfo([FromUri] string memberId)

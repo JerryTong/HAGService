@@ -22,6 +22,8 @@ namespace HAG.Domain.Model.Customer
 
         public int MedalGroupId { get; set; }
 
+        public int Reward { get; set; }
+
         public int Priority { get; set; }
     }
 }

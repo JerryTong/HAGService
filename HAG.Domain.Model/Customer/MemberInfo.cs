@@ -33,5 +33,7 @@ namespace HAG.Domain.Model.Customer
         public int Bad { get; set; }
 
         public int Login { get; set; }
+
+        public List<MemberMedalInfo> MemberMedalInfo { get; set; }
     }
 }

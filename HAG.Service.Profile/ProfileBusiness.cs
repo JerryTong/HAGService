@@ -56,7 +56,7 @@ namespace HAG.Service.Profile
         /// </summary>
         /// <param name="memberId"></param>
         /// <returns></returns>
-        public List<MemberMedalInfo> GetMemberMedalInfo(string memberId)
+        public List<MemberMedalInfo> GetProfileMemberMedalInfo(string memberId)
         {
             if (string.IsNullOrEmpty(memberId))
             {
@@ -64,93 +64,40 @@ namespace HAG.Service.Profile
             }
 
             var medalInfoList = new AssistanceBusiness().GetMedalInfo();
-            var memberMedalInfo = profileDA.GetMemberMedalInfo(new List<string> { memberId });
+            var memberMedalInfo = profileDA.GetProfileMemberMedalInfo(new List<string> { memberId });
 
             var response = new List<MemberMedalInfo>();
             if (memberMedalInfo != null && memberMedalInfo.Count > 0)
             {
-                medalInfoList.ForEach(m =>
+                foreach (var memberMedal in memberMedalInfo)
                 {
-                    //檢查會員是否有此徽章積分
-                    var tmpMemberMedal = memberMedalInfo.Where(mm => mm.MedalGroupId == m.MedalGroupId);
-                    if(tmpMemberMedal != null && tmpMemberMedal.Count() > 0)
-                    {
-                        var tmp = tmpMemberMedal.First();
-                        if (tmp.Score >= m.MedalLimit)
-                        {
-                            response.Add(new MemberMedalInfo
-                            {
-                                MedalGroupId = m.MedalGroupId,
-                                MemberId = memberId,
-                                Score = tmp.Score,
-                                MedalInfo = new MedalInfo
-                                {
-                                    MedalId = m.MedalId,
-                                    MedalLimit = m.MedalLimit,
-                                    MedalDescription = m.MedalDescription,
-                                    MedalGroupId = m.MedalGroupId,
-                                    MedalName = m.MedalName,
-                                    Active = m.Active,
-                                    Image = m.Image
-                                },
-                            });
-                        }
-                    }
-                    else
-                    {
-                        // 沒有此積分 設為0
-                        response.Add(new MemberMedalInfo
-                        {
-                            MedalGroupId = m.MedalGroupId,
-                            MemberId = memberId,
-                            Score = 0,
-                            MedalInfo = new MedalInfo
-                            {
-                                MedalId = m.MedalId,
-                                MedalLimit = m.MedalLimit,
-                                MedalDescription = m.MedalDescription,
-                                MedalGroupId = m.MedalGroupId,
-                                MedalName = m.MedalName,
-                                Active = m.Active,
-                                Image = "padlock.svg"
-                            },
-                        });
-                    }
-                });
-
-                memberMedalInfo.ForEach(r =>
-                {
-                    var targetMedal = medalInfoList.Where(m => m.MedalGroupId == r.MedalGroupId);
-                    if (targetMedal != null && targetMedal.Count() > 0)
-                    {
-                        targetMedal.ToList().ForEach(t =>
-                        {
-                            // 比分數
-                            if (r.Score >= t.MedalLimit)
-                            {
-                                response.Add(new MemberMedalInfo
-                                {
-                                    MedalGroupId = r.MedalGroupId,
-                                    MemberId = r.MemberId,
-                                    Score = r.Score,
-                                    Achieve = true,
-                                    MedalInfo = new MedalInfo
-                                    {
-                                        MedalId = t.MedalId,
-                                        MedalLimit = t.MedalLimit,
-                                        MedalDescription = t.MedalDescription,
-                                        MedalGroupId = t.MedalGroupId,
-                                        MedalName = t.MedalName,
-                                        Active = t.Active,
-                                        Image = t.Image
-                                    },
-                                });
-                            }
-                        });
-                    }
-                });
+                    memberMedal.Achieve = memberMedal.Score >= memberMedal.MedalLimit;
+                    response.Add(memberMedal);
+                }
             }
 
+            medalInfoList = medalInfoList.OrderBy(mm => mm.Priority).ThenBy(mm => mm.MedalLimit).ToList();
+            medalInfoList.ForEach(m =>
+            {
+                if (!response.Any(r => r.MedalId == m.MedalId))
+                {
+                    response.Add(new MemberMedalInfo
+                    {
+                        MedalGroupId = m.MedalGroupId,
+                        MemberId = memberId,
+                        Score = 0,
+                        MedalId = m.MedalId,
+                        MedalLimit = m.MedalLimit,
+                        MedalDescription = m.MedalDescription,
+                        MedalName = m.MedalName,
+                        Active = m.Active,
+                        Image = "padlock.svg",
+                        Reward = m.Reward,
+                        Priority = m.Priority,
+                    });
+                }
+            });
+          
             response = response.OrderByDescending(r => r.Achieve).ToList();
             return response;
         }
