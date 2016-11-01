@@ -1,5 +1,6 @@
 ﻿using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Request;
+using HAG.Domain.Model.Response;
 using HAG.Service.Assistance;
 using System;
 using System.Collections.Generic;
@@ -18,21 +19,55 @@ namespace HAG.Service.Customer
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public int Register(MemberRegisterRequest request)
+        public ResponseStatus Register(MemberRegisterRequest request)
         {
-            if(request == null || string.IsNullOrEmpty(request.MemberId))
+            if(request == null 
+                || (string.IsNullOrEmpty(request.MemberId) && string.IsNullOrEmpty(request.Email))
+                || string.IsNullOrEmpty(request.Phone)
+                || string.IsNullOrEmpty(request.Line)
+                || string.IsNullOrEmpty(request.Name))
             {
-                return -1;
+                return new ResponseStatus
+                {
+                    StatusCode = Domain.Model.Enum.StatusCode.Failure,
+                    Message = "欄位錯誤."
+                };
+            }
+
+            // 使用 email 登入
+            if (string.IsNullOrEmpty(request.MemberId) && !string.IsNullOrEmpty(request.Email))
+            {
+                request.MemberId = "100000" + new Random(Guid.NewGuid().GetHashCode()).Next(10000000, 99999999).ToString();
+            }
+            
+            // 不為0表示無法註冊(已存在email or 存取錯誤)
+            var existMember = customerDA.InternalLogin(request.Email);
+            if(existMember != 1)
+            {
+                return new ResponseStatus
+                {
+                    StatusCode = Domain.Model.Enum.StatusCode.Failure,
+                    Message = "信箱已註冊."
+                };
             }
 
             int code = customerDA.Register(request);
 
-            if(code == 1)
+            var response = new ResponseStatus();
+            if (code == 1)
             {
-                code = customerDA.RegisterMemberExtra(request);
+                response = customerDA.RegisterMemberExtra(request);
+            }
+            else
+            {
+                return new ResponseStatus
+                {
+                    StatusCode = Domain.Model.Enum.StatusCode.Failure,
+                    Message = "Register Error."
+                };
             }
 
-            return code;
+            return response;
         }
 
         /// <summary>
@@ -92,11 +127,11 @@ namespace HAG.Service.Customer
         /// <param name="memberId"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public int Login(string memberId, string email)
+        public MemberInfo Login(string memberId, string email)
         {
             if(string.IsNullOrEmpty(memberId) && string.IsNullOrEmpty(email))
             {
-                return -1;
+                return null;
             }
 
             return customerDA.Login(memberId, email);

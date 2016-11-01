@@ -32,12 +32,12 @@ namespace HAG.Service.Search
             return response;
         }
 
-        public List<MapMakerInfo> GetMapMakerInfo(float Latitude, float Longitude, int maxSize, int missionType)
+        public List<MapMakerInfo> GetMapMakerInfo(float Latitude, float Longitude, int maxSize, string missionType)
         {
             List<string> pameterMissionType = null;
-            if (missionType != 0)
+            if (!string.IsNullOrEmpty(missionType))
             {
-                pameterMissionType = new List<string>() { missionType.ToString() };
+                pameterMissionType = missionType.Split(',').ToList();
             }
             else
             {

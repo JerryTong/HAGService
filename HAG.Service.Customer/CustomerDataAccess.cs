@@ -2,6 +2,7 @@
 using Fox.Framework.Entity;
 using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Request;
+using HAG.Domain.Model.Response;
 using HAG.Manager.Configuration;
 using System;
 using System.Collections.Generic;
@@ -33,11 +34,12 @@ namespace HAG.Service.Customer
 
                     command.Parameters.AddWithValue("@MemberId", request.MemberId);
                     command.Parameters.AddWithValue("@Name", request.Name);
-                    command.Parameters.AddWithValue("@Description", request.Description);
+                    command.Parameters.AddWithValue("@Description", "");
                     command.Parameters.AddWithValue("@Phone", request.Phone);
                     command.Parameters.AddWithValue("@Line", request.Line);
                     command.Parameters.AddWithValue("@Email", request.Email);
-                    command.Parameters.AddWithValue("@Image", request.Image);
+                    command.Parameters.AddWithValue("@Image", "");
+                    command.Parameters.AddWithValue("@Password", request.Password);
 
                     int rowsAffected = command.ExecuteNonQuery();
 
@@ -53,7 +55,7 @@ namespace HAG.Service.Customer
             return -1;
         }
 
-        public int Login(string memberId, string email)
+        public MemberInfo Login(string email, string password)
         {
             var dataCommend = DataCommandAccessor.Get("GetMemberLogin");
 
@@ -64,7 +66,7 @@ namespace HAG.Service.Customer
                 {
                     connection.Open();
 
-                    command.Parameters.AddWithValue("@MemberId", memberId);
+                    command.Parameters.AddWithValue("@Password", password);
                     command.Parameters.AddWithValue("@Email", email);
 
                     var reader = command.ExecuteReader();
@@ -72,12 +74,49 @@ namespace HAG.Service.Customer
                     dt.Load(reader);
 
                     var tmp = DataTableAccessor.ToCollection<MemberInfo>(dt)[0];
-                    if(tmp == null)
+                    return tmp;
+                }
+                catch (Exception ex)
+                {
+                    connection.Close();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public int InternalLogin(string email)
+        {
+            var dataCommend = DataCommandAccessor.Get("CheckExistMember");
+
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@Email", email);
+
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    var tmp = DataTableAccessor.ToCollection<MemberInfo>(dt);
+                    if(tmp != null && tmp.Count == 0)
                     {
-                        return -1;
+                        return 1;
                     }
 
-                    return 1;
+                    return -1;
                 }
                 catch (Exception ex)
                 {
@@ -91,13 +130,13 @@ namespace HAG.Service.Customer
 
             return -1;
         }
-        
+
         /// <summary>
         /// 建構會員相關基礎表
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public int RegisterMemberExtra(MemberRegisterRequest request)
+        public ResponseStatus RegisterMemberExtra(MemberRegisterRequest request)
         {
             var dataCommend = DataCommandAccessor.Get("CreateHAGMemberExtra");
 
@@ -111,10 +150,12 @@ namespace HAG.Service.Customer
                     command.Parameters.AddWithValue("@MemberId", request.MemberId);
                     command.Parameters.AddWithValue("@Star", BizConfigManager.Current.RegisterEgg);
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
 
-                    connection.Close();
-                    return rowsAffected;
+                    var tmpInfo = DataTableAccessor.ToCollection<ResponseStatus>(dt);
+                    return tmpInfo.First();
                 }
                 catch (Exception ex)
                 {
@@ -122,7 +163,7 @@ namespace HAG.Service.Customer
                 }
             }
 
-            return -1;
+            return null;
         }
 
         /// <summary>

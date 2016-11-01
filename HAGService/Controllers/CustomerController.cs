@@ -1,5 +1,6 @@
 ﻿using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Request;
+using HAG.Domain.Model.Response;
 using HAG.Entity;
 using HAG.Service.Customer;
 using System;
@@ -22,7 +23,7 @@ namespace HAGService.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("api/member/register")]
-        public int Register(MemberRegisterRequest request)
+        public ResponseStatus Register(MemberRegisterRequest request)
         {
             //RedisClient.SetValue("keyt", "test");
             //string a = RedisClient.GetValue("keyt");
@@ -38,9 +39,9 @@ namespace HAGService.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/member/login")]
-        public int Login(string memberId = "", string email = "")
+        public MemberInfo Login(string email, string password)
         {
-            return new CustomerBusiness().Login(memberId, email);
+            return new CustomerBusiness().Login(email, password);
         }
 
         [HttpGet]

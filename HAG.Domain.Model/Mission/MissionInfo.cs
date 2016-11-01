@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HAG.Domain.Model.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace HAG.Domain.Model.Mission
         public int MissionId { get; set; }
 
         public string MemberId { get; set; }
+
+        public MemberInfo MemberInfo { get; set; }
 
         public string SuperManId { get; set; }
 

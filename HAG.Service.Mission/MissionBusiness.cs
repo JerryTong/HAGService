@@ -1,6 +1,7 @@
 ﻿using HAG.Domain.Model.Mission;
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
+using HAG.Service.Assistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,18 @@ namespace HAG.Service.Mission
             var result = new MissionResponse();
             result.MissionCollection = missionDA.GetMissionInfo(missionIds);
 
+            if (result.MissionCollection != null && result.MissionCollection.Count > 0)
+            {
+                var memberList = new AssistanceBusiness().GetMemberListInfo(result.MissionCollection.Select(m => m.MemberId).ToList());
+                if(memberList != null)
+                {
+                    foreach(var mission in result.MissionCollection)
+                    {
+                        mission.MemberInfo = memberList.FirstOrDefault(member => member.MemberId == mission.MemberId);
+                    }
+                }
+            }
+
             return result;
         }
 
@@ -111,7 +124,7 @@ namespace HAG.Service.Mission
                 return null;
             }
 
-            var response = missionDA.UpdateMissionStatus(request.MissionId, request.MemberId, "F");
+            var response = missionDA.UpdateMissionStatus(request.MissionId, request.MemberId, "F", request.SuperManId);
             return new MissionStatusResponse
             {
                 MissionStatus = response.StatusCode == Domain.Model.Enum.StatusCode.Success ? "F" : string.Empty,

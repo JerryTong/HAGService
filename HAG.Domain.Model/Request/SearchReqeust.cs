@@ -14,7 +14,7 @@ namespace HAG.Domain.Model.Request
 
         public int ZoomLevel { get; set; }
 
-        public int MissionType { get; set; }
+        public string MissionType { get; set; }
 
         public int MaxSize { get; set; }
 
