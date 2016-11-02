@@ -2,6 +2,7 @@
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Service.Assistance;
+using HAG.Service.Shop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,24 @@ namespace HAG.Service.Mission
 
             if (response != null)
             {
+                //任務建立成功, 檢查有無使用道具
+                if (string.IsNullOrEmpty(request.PropIds))
+                {
+                    try
+                    {
+                        var response2 = new ShopBusiness().UseEffect(new ShopUseEffectRequest
+                        {
+                            MemberId = request.MemberId,
+                            MissionId = response.MissionId,
+                            EffectId = 5001
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
                 return new MissionStatusResponse
                 {
                     MissionId = response.MissionId,

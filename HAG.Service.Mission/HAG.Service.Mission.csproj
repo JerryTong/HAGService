@@ -60,6 +60,10 @@
       <Project>{82FBEC47-18DF-4E63-8FCA-06E1A2FCEAF7}</Project>
       <Name>HAG.Service.Assistance</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.Shop\HAG.Service.Shop.csproj">
+      <Project>{0fbfa5f0-bee4-4472-aef0-949892c470ef}</Project>
+      <Name>HAG.Service.Shop</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
