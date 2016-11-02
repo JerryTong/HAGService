@@ -103,6 +103,7 @@ namespace HAG.Service.Mission
             }
 
             var response = missionDA.UpdateMissionStatus(request.MissionId, request.MemberId, "R", request.SuperManId);
+
             return new MissionStatusResponse
             {
                 MissionStatus = response.StatusCode == Domain.Model.Enum.StatusCode.Success ? "R" : string.Empty,

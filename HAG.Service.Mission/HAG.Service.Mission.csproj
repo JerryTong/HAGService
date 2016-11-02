@@ -60,6 +60,10 @@
       <Project>{82FBEC47-18DF-4E63-8FCA-06E1A2FCEAF7}</Project>
       <Name>HAG.Service.Assistance</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HAG.Service.MsgReqeust\HAG.Service.MsgReqeust.csproj">
+      <Project>{c191c67e-7e3f-4b37-a89c-bcd7c4cd5b07}</Project>
+      <Name>HAG.Service.MsgReqeust</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

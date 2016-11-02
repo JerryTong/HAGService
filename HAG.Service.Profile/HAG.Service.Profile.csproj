@@ -53,6 +53,14 @@
       <Project>{0024795B-910D-431C-877D-8CB6317FDD2D}</Project>
       <Name>HAG.Domain.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HAG.Entity\HAG.Manager.Entity.csproj">
+      <Project>{0AD21F5E-4C81-4979-96A8-5FB9BC0FF6E1}</Project>
+      <Name>HAG.Manager.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Manager.Configuration\HAG.Manager.Configuration.csproj">
+      <Project>{1ED23938-50B7-4707-8527-D6AD2C09FC55}</Project>
+      <Name>HAG.Manager.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HAG.Service.Assistance\HAG.Service.Assistance.csproj">
       <Project>{82FBEC47-18DF-4E63-8FCA-06E1A2FCEAF7}</Project>
       <Name>HAG.Service.Assistance</Name>

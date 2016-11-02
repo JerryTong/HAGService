@@ -1,5 +1,7 @@
 ﻿using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Response;
+using HAG.Entity;
+using HAG.Manager.Configuration;
 using HAG.Service.Assistance;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,7 @@ namespace HAG.Service.Profile
 
             var response = new MissionResponse();
             response.MissionCollection = profileDA.GetHelpMissionByMemberId(memberId, status);
+            UpdateReadDateTime("NoitcAsk", memberId, DateTime.Now);
 
             return response;
         }
@@ -47,6 +50,7 @@ namespace HAG.Service.Profile
 
             var response = new MissionResponse();
             response.MissionCollection = profileDA.GetGiveMissionByMemberId(memberId, status);
+            UpdateReadDateTime("NoitcAnswer", memberId, DateTime.Now);
 
             return response;
         }
@@ -136,6 +140,11 @@ namespace HAG.Service.Profile
             }
 
             return response;
+        }
+
+        private void UpdateReadDateTime(string type, string memberId, DateTime datetime)
+        {
+            RedisClient.SetValue(string.Format("{0}_{1}", type, memberId), datetime.AddHours(BizConfigManager.Current.ServerTime).ToString());
         }
     }
 }

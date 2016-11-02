@@ -3,7 +3,6 @@ using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Entity;
 using HAG.Service.Assistance;
-using HAG.Service.Mission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -237,8 +236,8 @@ namespace HAG.Service.MsgReqeust
             DateTime askDateTime = new DateTime(2000, 1, 1);
             DateTime answerDateTime = new DateTime(2000, 1, 1); 
 
-            string askCache = RedisClient.GetValue(memberId + "_NoitcAsk");
-            string answerCache = RedisClient.GetValue(memberId + "_NoitcAnswer");
+            string askCache = RedisClient.GetValue("NoitcAsk_" + memberId);
+            string answerCache = RedisClient.GetValue("NoitcAnswer_" + memberId);
             if (!string.IsNullOrEmpty(askCache))
             {
                 askDateTime = DateTime.Parse(askCache);

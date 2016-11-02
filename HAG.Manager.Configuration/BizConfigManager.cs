@@ -31,5 +31,8 @@ namespace HAG.Manager.Configuration
     {
         [XmlElement("registerEgg")]
         public int RegisterEgg { get; set; }
+
+        [XmlElement("serverTime")]
+        public int ServerTime { get; set; }
     }
 }
