@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HAG.Domain.Model.Response;
 
 namespace HAG.Service.Assistance
 {
@@ -74,6 +75,44 @@ namespace HAG.Service.Assistance
                 catch (Exception ex)
                 {
 
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 更新會員星星數
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="star"></param>
+        /// <returns></returns>
+        public ResponseStatus UpdateMemberStar(string memberId, int star)
+        {
+            var dataCommend = DataCommandAccessor.Get("UpdateMemberStar");
+            using (SqlConnection connection = new SqlConnection(dataCommend.Environment.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(dataCommend.SqlCommend, connection);
+                try
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@Star", star);
+                    command.Parameters.AddWithValue("@MemberId", memberId);
+
+                    var reader = command.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    var tmpInfo = DataTableAccessor.ToCollection<ResponseStatus>(dt);
+                    return tmpInfo.First();
+                }
+                catch (Exception ex)
+                {
+                    connection.Close();
                 }
                 finally
                 {

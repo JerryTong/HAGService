@@ -1,4 +1,5 @@
 ﻿using HAG.Domain.Model.Customer;
+using HAG.Domain.Model.Response;
 using HAG.Domain.Model.Shop;
 using System;
 using System.Collections.Generic;
@@ -63,6 +64,17 @@ namespace HAG.Service.Assistance
             }
 
             return response;
+        }
+
+        /// <summary>
+        /// 更新會員星星數
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="star"></param>
+        /// <returns></returns>
+        public ResponseStatus UpdateMemberStar(string memberId, int star)
+        {
+            return assistanceDA.UpdateMemberStar(memberId, star);
         }
     }
 }

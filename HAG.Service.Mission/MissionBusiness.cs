@@ -13,7 +13,7 @@ namespace HAG.Service.Mission
     public class MissionBusiness
     {
         private MissionDataAccess missionDA = new MissionDataAccess();
-
+        private AssistanceBusiness AssistanceBL = new AssistanceBusiness();
         /// <summary>
         /// 建立任務
         /// </summary>
@@ -30,6 +30,17 @@ namespace HAG.Service.Mission
                         StatusCode = HAG.Domain.Model.Enum.StatusCode.Illegal,
                         Message = "Request body was null."
                     }
+                };
+            }
+
+            // 檢查會員星星是否足夠
+            var starStatus = AssistanceBL.UpdateMemberStar(request.MemberId, 0 - request.Star);
+            if(starStatus.StatusCode != 0)
+            {
+                // 星星不足 返回錯誤訊息
+                return new MissionStatusResponse
+                {
+                    Status = starStatus
                 };
             }
 
