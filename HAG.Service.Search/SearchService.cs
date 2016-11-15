@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Search
 {
-    public class SearchBusiness
+    public class SearchService
     {
         private SearchDataAccess searchDA = new SearchDataAccess();
         public SearchResponse Search(SearchReqeust request)

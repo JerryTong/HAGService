@@ -44,6 +44,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.2.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fox.Framework">
       <HintPath>..\1.Libraries\FoxFramework\Fox.Framework.dll</HintPath>
     </Reference>
@@ -121,6 +129,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -159,6 +168,10 @@
     <ProjectReference Include="..\HAG.Entity\HAG.Manager.Entity.csproj">
       <Project>{0ad21f5e-4c81-4979-96a8-5fb9bc0ff6e1}</Project>
       <Name>HAG.Manager.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HAG.Interface\HAG.Interface.csproj">
+      <Project>{08ef70f7-ede5-40be-a82d-17b840d8c312}</Project>
+      <Name>HAG.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\HAG.Manager.Configuration\HAG.Manager.Configuration.csproj">
       <Project>{1ed23938-50b7-4707-8527-d6ad2c09fc55}</Project>

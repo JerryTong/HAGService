@@ -1,6 +1,8 @@
-﻿using HAG.Domain.Model.Customer;
+﻿using Autofac;
+using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
+using HAG.Interface;
 using HAG.Service.Assistance;
 using System;
 using System.Collections.Generic;
@@ -10,9 +12,13 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Customer
 {
-    public class CustomerBusiness
+    public class CustomerService
     {
         private CustomerDataAccess customerDA = new CustomerDataAccess();
+        private CustomerService()
+        {
+
+        }
 
         /// <summary>
         /// 會員註冊
@@ -97,7 +103,7 @@ namespace HAG.Service.Customer
                 return null;
             }
 
-            var medalInfoList = new AssistanceBusiness().GetMedalInfo();
+            var medalInfoList = new AssistanceService().GetMedalInfo();
             var memberMedalInfo = customerDA.GetMemberMedalInfo(new List<string> { memberId });
 
             var response = new List<MemberMedalInfo>();

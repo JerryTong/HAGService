@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Profile
 {
-    public class ProfileBusiness
+    public class ProfileService
     {
         private ProfileDataAccess profileDA = new ProfileDataAccess();
 
@@ -67,7 +67,7 @@ namespace HAG.Service.Profile
                 return null;
             }
 
-            var medalInfoList = new AssistanceBusiness().GetMedalInfo();
+            var medalInfoList = new AssistanceService().GetMedalInfo();
             var memberMedalInfo = profileDA.GetProfileMemberMedalInfo(new List<string> { memberId });
 
             var response = new List<MemberMedalInfo>();
@@ -118,7 +118,7 @@ namespace HAG.Service.Profile
                 return null;
             }
 
-            var effectInfoList = new AssistanceBusiness().GetEffectInfo();
+            var effectInfoList = new AssistanceService().GetEffectInfo();
             var membereffectInfo = profileDA.GetMemberEffectInfo(memberId);
 
             var response = new List<MemberEffectInfo>();

@@ -20,42 +20,42 @@ namespace HAGService.Controllers
         [Route("api/mission/create")]
         public MissionStatusResponse Create([FromBody] MissionCreateRequest request)
         {
-            return new MissionBusiness().Create(request);
+            return new MissionBService().Create(request);
         }
 
         [HttpGet]
         [Route("api/mission/{missionIds}")]
         public MissionResponse GetMission([FromUri] string missionIds)
         {
-            return new MissionBusiness().Get(missionIds);
+            return new MissionBService().Get(missionIds);
         }
 
         [HttpPost]
         [Route("api/mission/start")]
         public MissionStatusResponse Start([FromBody] MissionStatusRequest request)
         {
-            return new MissionBusiness().Start(request);
+            return new MissionBService().Start(request);
         }
 
         [HttpPost]
         [Route("api/mission/complete")]
         public MissionStatusResponse Complete([FromBody] MissionStatusRequest request)
         {
-            return new MissionBusiness().Complete(request);
+            return new MissionBService().Complete(request);
         }
 
         [HttpPost]
         [Route("api/mission/delete")]
         public MissionStatusResponse Delete([FromBody] MissionStatusRequest request)
         {
-            return new MissionBusiness().Delete(request);
+            return new MissionBService().Delete(request);
         }
 
         [HttpPost]
         [Route("api/mission/helper/evaluation")]
         public MissionStatusResponse Evaluation([FromBody] MissionEvaluationRequest request)
         {
-            return new MissionBusiness().Evaluation(request);
+            return new MissionBService().Evaluation(request);
         }
     }
 }

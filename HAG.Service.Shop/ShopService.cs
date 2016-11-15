@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Shop
 {
-    public class ShopBusiness
+    public class ShopService
     {
         private ShopDataAccess shopDA = new ShopDataAccess();
 

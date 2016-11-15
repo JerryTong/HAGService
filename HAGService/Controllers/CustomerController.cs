@@ -1,7 +1,9 @@
-﻿using HAG.Domain.Model.Customer;
+﻿using Autofac;
+using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Entity;
+using HAG.Interface;
 using HAG.Service.Customer;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,15 @@ namespace HAGService.Controllers
     [EnableCors("*", "*", "*")]
     public class CustomerController : ApiController
     {
+        private readonly IAssistanceService assistanceService;
+        private readonly ICustomerService customerService;
+        public CustomerController(ICustomerService _customerService, IAssistanceService _assistanceService)
+        {
+            customerService = _customerService;
+            assistanceService = _assistanceService;
+            
+        }
+
         /// <summary>
         /// 會員註冊 返回1表示成功.
         /// </summary>
@@ -28,7 +39,7 @@ namespace HAGService.Controllers
             //RedisClient.SetValue("keyt", "test");
             //string a = RedisClient.GetValue("keyt");
 
-            return new CustomerBusiness().Register(request);
+            return customerService.Register(request);
         }
 
         /// <summary>
@@ -41,21 +52,21 @@ namespace HAGService.Controllers
         [Route("api/member/login")]
         public MemberInfo Login(string email, string password)
         {
-            return new CustomerBusiness().Login(email, password);
+            return customerService.Login(email, password);
         }
 
         [HttpGet]
         [Route("api/member/{memberId}")]
         public MemberInfo GetMemberInfo([FromUri] string memberId)
         {
-            return new CustomerBusiness().GetMemberBaseInfo(memberId);
+            return customerService.GetMemberBaseInfo(memberId);
         }
 
         [HttpGet]
         [Route("api/member/medal/{memberId}")]
         public List<MemberMedalInfo> GetMemberMedalInfo([FromUri] string memberId)
         {
-            return new CustomerBusiness().GetMebmerMedalInfo(memberId);
+            return customerService.GetMebmerMedalInfo(memberId);
         }
     }
 }

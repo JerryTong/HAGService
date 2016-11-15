@@ -12,6 +12,8 @@ namespace HAGService
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            DependencyRegistrar.Register();
+
         }
     }
 }

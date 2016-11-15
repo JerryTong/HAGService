@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Mission
 {
-    public class MissionBusiness
+    public class MissionBService
     {
         private MissionDataAccess missionDA = new MissionDataAccess();
-        private AssistanceBusiness AssistanceBL = new AssistanceBusiness();
+        private AssistanceService AssistanceBL = new AssistanceService();
         /// <summary>
         /// 建立任務
         /// </summary>
@@ -55,7 +55,7 @@ namespace HAG.Service.Mission
                 {
                     try
                     {
-                        var response2 = new ShopBusiness().UseEffect(new ShopUseEffectRequest
+                        var response2 = new ShopService().UseEffect(new ShopUseEffectRequest
                         {
                             MemberId = request.MemberId,
                             MissionId = response.MissionId,
@@ -107,7 +107,7 @@ namespace HAG.Service.Mission
 
             if (result.MissionCollection != null && result.MissionCollection.Count > 0)
             {
-                var memberList = new AssistanceBusiness().GetMemberListInfo(result.MissionCollection.Select(m => m.MemberId).ToList());
+                var memberList = new AssistanceService().GetMemberListInfo(result.MissionCollection.Select(m => m.MemberId).ToList());
                 if(memberList != null)
                 {
                     foreach(var mission in result.MissionCollection)

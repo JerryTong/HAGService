@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.MsgReqeust
 {
-    public class MsgReqeustBusiness
+    public class MsgReqeustService
     {
         /// <summary>
         /// 獲取任務 訊息列表
@@ -45,7 +45,7 @@ namespace HAG.Service.MsgReqeust
 
             if(response.MsgReqeustList != null)
             {
-                AssistanceBusiness assistanceBL = new AssistanceBusiness();
+                AssistanceService assistanceBL = new AssistanceService();
                 var memberList = response.MsgReqeustList.Select(m => m.MemberId).ToList();
                 var memberListInfo = assistanceBL.GetMemberListInfo(memberList);
                 var memberMedalInfo = assistanceBL.GetMemberMedalListInfo(memberList);

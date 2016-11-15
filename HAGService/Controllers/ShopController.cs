@@ -20,21 +20,21 @@ namespace HAGService.Controllers
         [Route("api/shop/effect")]
         public List<EffectInfo> EffectList()
         {
-            return new AssistanceBusiness().GetEffectInfo();
+            return new AssistanceService().GetEffectInfo();
         }
 
         [HttpPost]
         [Route("api/shop/effect/buy")]
         public ResponseStatus BuyEffect([FromBody] ShopByEffectRequest request)
         {
-            return new ShopBusiness().BuyEffect(request);
+            return new ShopService().BuyEffect(request);
         }
 
         [HttpPost]
         [Route("api/shop/effect/Use")]
         public ResponseStatus UseEffect([FromBody] ShopUseEffectRequest request)
         {
-            return new ShopBusiness().UseEffect(request);
+            return new ShopService().UseEffect(request);
         }
     }
 }

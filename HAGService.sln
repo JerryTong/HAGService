@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAGService", "HAGService\HAGService.csproj", "{FA2A4351-39F0-4E3F-BBA0-4993D62EF384}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAG.Service.MsgReqeust", "HAG.Service.MsgReqeust\HAG.Service.MsgReqeust.csproj", "{C191C67E-7E3F-4B37-A89C-BCD7C4CD5B07}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAG.Service.Profile", "HAG.Service.Profile\HAG.Service.Profile.csproj", "{80E08CB6-5D8C-4CBE-ADBC-6CF155FC742C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAG.Interface", "HAG.Interface\HAG.Interface.csproj", "{08EF70F7-EDE5-40BE-A82D-17B840D8C312}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{80E08CB6-5D8C-4CBE-ADBC-6CF155FC742C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80E08CB6-5D8C-4CBE-ADBC-6CF155FC742C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80E08CB6-5D8C-4CBE-ADBC-6CF155FC742C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08EF70F7-EDE5-40BE-A82D-17B840D8C312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08EF70F7-EDE5-40BE-A82D-17B840D8C312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08EF70F7-EDE5-40BE-A82D-17B840D8C312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08EF70F7-EDE5-40BE-A82D-17B840D8C312}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

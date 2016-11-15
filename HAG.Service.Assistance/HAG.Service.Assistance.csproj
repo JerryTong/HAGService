@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.2.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fox.Framework">
       <HintPath>..\1.Libraries\FoxFramework\Fox.Framework.dll</HintPath>
     </Reference>
@@ -44,7 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssistanceBusiness.cs" />
+    <Compile Include="AssistanceService.cs" />
     <Compile Include="AssistanceDataAcces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +57,13 @@
       <Project>{0024795B-910D-431C-877D-8CB6317FDD2D}</Project>
       <Name>HAG.Domain.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HAG.Interface\HAG.Interface.csproj">
+      <Project>{08ef70f7-ede5-40be-a82d-17b840d8c312}</Project>
+      <Name>HAG.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

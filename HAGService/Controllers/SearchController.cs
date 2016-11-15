@@ -18,14 +18,14 @@ namespace HAGService.Controllers
         [Route("api/search/searchtest")]
         public SearchResponse SearchTest([FromUri]SearchReqeust request)
         {
-            return new SearchBusiness().SearchTest(request);
+            return new SearchService().SearchTest(request);
         }
 
         [HttpGet]
         [Route("api/search/search")]
         public SearchResponse Search([FromUri]SearchReqeust request)
         {
-            return new SearchBusiness().Search(request);
+            return new SearchService().Search(request);
         }
     }
 }
