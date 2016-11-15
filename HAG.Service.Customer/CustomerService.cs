@@ -3,7 +3,6 @@ using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Interface;
-using HAG.Service.Assistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,16 @@ namespace HAG.Service.Customer
     public class CustomerService : ICustomerService
     {
         private CustomerDataAccess customerDA = new CustomerDataAccess();
-        
+
+        /// <summary>
+        /// Assistance Service.
+        /// </summary>
+        private readonly IAssistanceService assistanceService;
+        public CustomerService(IAssistanceService assistance)
+        {
+            assistanceService = assistance;
+        }
+
         /// <summary>
         /// 會員註冊
         /// </summary>
@@ -99,7 +107,7 @@ namespace HAG.Service.Customer
                 return null;
             }
 
-            var medalInfoList = new AssistanceService().GetMedalInfo();
+            var medalInfoList = assistanceService.GetMedalInfo();
             var memberMedalInfo = customerDA.GetMemberMedalInfo(new List<string> { memberId });
 
             var response = new List<MemberMedalInfo>();

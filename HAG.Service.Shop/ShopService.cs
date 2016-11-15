@@ -1,6 +1,7 @@
 ﻿using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Domain.Model.Shop;
+using HAG.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Shop
 {
-    public class ShopService
+    public class ShopService : IShopService
     {
         private ShopDataAccess shopDA = new ShopDataAccess();
 

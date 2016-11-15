@@ -18,12 +18,10 @@ namespace HAGService.Controllers
     [EnableCors("*", "*", "*")]
     public class CustomerController : ApiController
     {
-        private readonly IAssistanceService assistanceService;
         private readonly ICustomerService customerService;
-        public CustomerController(ICustomerService _customerService, IAssistanceService _assistanceService)
+        public CustomerController(ICustomerService _customerService)
         {
             customerService = _customerService;
-            assistanceService = _assistanceService;    
         }
 
         /// <summary>

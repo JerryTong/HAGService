@@ -1,6 +1,7 @@
 ﻿using HAG.Domain.Model.Map;
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
+using HAG.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Search
 {
-    public class SearchService
+    public class SearchService : ISearchService
     {
         private SearchDataAccess searchDA = new SearchDataAccess();
         public SearchResponse Search(SearchReqeust request)

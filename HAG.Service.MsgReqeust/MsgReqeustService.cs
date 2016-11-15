@@ -2,7 +2,7 @@
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
 using HAG.Entity;
-using HAG.Service.Assistance;
+using HAG.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +11,17 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.MsgReqeust
 {
-    public class MsgReqeustService
+    public class MsgReqeustService : IMsgReqeustService
     {
+        /// <summary>
+        /// Assistance Service.
+        /// </summary>
+        private readonly IAssistanceService assistanceService;
+        public MsgReqeustService(IAssistanceService assistance)
+        {
+            assistanceService = assistance;
+        }
+
         /// <summary>
         /// 獲取任務 訊息列表
         /// </summary>
@@ -45,10 +54,9 @@ namespace HAG.Service.MsgReqeust
 
             if(response.MsgReqeustList != null)
             {
-                AssistanceService assistanceBL = new AssistanceService();
                 var memberList = response.MsgReqeustList.Select(m => m.MemberId).ToList();
-                var memberListInfo = assistanceBL.GetMemberListInfo(memberList);
-                var memberMedalInfo = assistanceBL.GetMemberMedalListInfo(memberList);
+                var memberListInfo = assistanceService.GetMemberListInfo(memberList);
+                var memberMedalInfo = assistanceService.GetMemberMedalListInfo(memberList);
 
                 if(memberListInfo != null && memberListInfo.Count > 0)
                 {
@@ -144,6 +152,11 @@ namespace HAG.Service.MsgReqeust
             return response;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public MissionMsgReqesutResponse SentMsgAnswerReqeust(MsgReqeustReqeust request)
         {
             MsgReqeustDataAccess msgReqeustDataAccess = new MsgReqeustDataAccess();

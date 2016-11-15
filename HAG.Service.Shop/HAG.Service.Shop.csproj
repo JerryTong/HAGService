@@ -60,6 +60,10 @@
       <Project>{0024795B-910D-431C-877D-8CB6317FDD2D}</Project>
       <Name>HAG.Domain.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HAG.Interface\HAG.Interface.csproj">
+      <Project>{08ef70f7-ede5-40be-a82d-17b840d8c312}</Project>
+      <Name>HAG.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityModelExtesion.cs" />
-    <Compile Include="MissionBService.cs" />
+    <Compile Include="MissionService.cs" />
     <Compile Include="MissionDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,14 +63,6 @@
     <ProjectReference Include="..\HAG.Interface\HAG.Interface.csproj">
       <Project>{08ef70f7-ede5-40be-a82d-17b840d8c312}</Project>
       <Name>HAG.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HAG.Service.Assistance\HAG.Service.Assistance.csproj">
-      <Project>{82FBEC47-18DF-4E63-8FCA-06E1A2FCEAF7}</Project>
-      <Name>HAG.Service.Assistance</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HAG.Service.MsgReqeust\HAG.Service.MsgReqeust.csproj">
-      <Project>{c191c67e-7e3f-4b37-a89c-bcd7c4cd5b07}</Project>
-      <Name>HAG.Service.MsgReqeust</Name>
     </ProjectReference>
     <ProjectReference Include="..\HAG.Service.Shop\HAG.Service.Shop.csproj">
       <Project>{0fbfa5f0-bee4-4472-aef0-949892c470ef}</Project>

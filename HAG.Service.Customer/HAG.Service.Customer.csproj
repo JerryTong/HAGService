@@ -67,10 +67,6 @@
       <Project>{1ED23938-50B7-4707-8527-D6AD2C09FC55}</Project>
       <Name>HAG.Manager.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HAG.Service.Assistance\HAG.Service.Assistance.csproj">
-      <Project>{82fbec47-18df-4e63-8fca-06e1a2fceaf7}</Project>
-      <Name>HAG.Service.Assistance</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

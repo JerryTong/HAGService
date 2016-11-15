@@ -45,6 +45,11 @@
   <ItemGroup>
     <Compile Include="IAssistanceService.cs" />
     <Compile Include="ICustomerService.cs" />
+    <Compile Include="IMissionService.cs" />
+    <Compile Include="IMsgReqeustService.cs" />
+    <Compile Include="IProfileService.cs" />
+    <Compile Include="ISearchService.cs" />
+    <Compile Include="IShopService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

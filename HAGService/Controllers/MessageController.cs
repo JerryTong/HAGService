@@ -1,5 +1,6 @@
 ﻿using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
+using HAG.Interface;
 using HAG.Service.MsgReqeust;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,15 @@ namespace HAGService.Controllers
     public class MessageController : ApiController
     {
         /// <summary>
+        /// 
+        /// </summary>
+        private readonly IMsgReqeustService msgReqeustService;
+        public MessageController(IMsgReqeustService _msgReqeustService)
+        {
+            msgReqeustService = _msgReqeustService;
+        }
+
+        /// <summary>
         /// 請求
         /// </summary>
         /// <param name="request"></param>
@@ -22,7 +32,7 @@ namespace HAGService.Controllers
         [Route("api/request/ask")]
         public MissionMsgReqesutResponse Ask([FromBody]MsgReqeustReqeust request)
         {
-            return new MsgReqeustService().SentMsgAskReqeust(request);
+            return msgReqeustService.SentMsgAskReqeust(request);
         }
 
         /// <summary>
@@ -33,7 +43,7 @@ namespace HAGService.Controllers
         [Route("api/request/answer")]
         public MissionMsgReqesutResponse Answer([FromBody]MsgReqeustReqeust request)
         {
-            return new MsgReqeustService().SentMsgAnswerReqeust(request);
+            return msgReqeustService.SentMsgAnswerReqeust(request);
         }
 
         /// <summary>
@@ -44,14 +54,14 @@ namespace HAGService.Controllers
         [Route("api/request/{missionId}")]
         public MissionMsgReqesutResponse Messages(int missionId)
         {
-            return new MsgReqeustService().GetMsgReqeustList(missionId);
+            return msgReqeustService.GetMsgReqeustList(missionId);
         }
 
         [HttpGet]
         [Route("api/request/notice/{memberId}")]
         public MessageNoticeResponse Notic(string memberId)
         {
-            return new MsgReqeustService().GetNoticeMsgReqeust(memberId);
+            return msgReqeustService.GetNoticeMsgReqeust(memberId);
         }
     }
 }

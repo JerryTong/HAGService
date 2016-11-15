@@ -24,10 +24,15 @@ namespace HAGService
             // 2. Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-
             // 3. Register service to be used by the controller
-            builder.RegisterType<HAG.Service.Assistance.AssistanceService>().As<HAG.Interface.IAssistanceService>();
             builder.RegisterType<HAG.Service.Customer.CustomerService>().As<HAG.Interface.ICustomerService>();
+            builder.RegisterType<HAG.Service.Assistance.AssistanceService>().As<HAG.Interface.IAssistanceService>();
+            builder.RegisterType<HAG.Service.Mission.MissionService>().As<HAG.Interface.IMissionService>();
+            builder.RegisterType<HAG.Service.MsgReqeust.MsgReqeustService>().As<HAG.Interface.IMsgReqeustService>();
+            builder.RegisterType<HAG.Service.Profile.ProfileService>().As<HAG.Interface.IProfileService>();
+            builder.RegisterType<HAG.Service.Search.SearchService>().As<HAG.Interface.ISearchService>();
+            builder.RegisterType<HAG.Service.Shop.ShopService>().As<HAG.Interface.IShopService>();
+
             //builder.Register(c => new HAG.Service.Assistance.AssistanceBusiness()).As<HAG.Interface.IAssistanceService>().InstancePerRequest();
 
 
@@ -35,5 +40,16 @@ namespace HAGService
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
+
+
+        // Autofac 註冊範例
+
+        ////  1. 用Name来区分不同的实现，代替As方法 ////
+        //  containerBuilder.RegisterType<DbRepository>().Named<IRepository>("DB");
+        //  containerBuilder.RegisterType<TestRepository>().Named<IRepository>("Test");
+            
+        //  IContainer container = containerBuilder.Build();
+        //  var dbRepository = container.ResolveNamed<IRepository>("DB");
+        //  var testRepository = container.ResolveNamed<IRepository>("Test");
     }
 }

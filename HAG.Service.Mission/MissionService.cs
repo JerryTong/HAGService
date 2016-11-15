@@ -1,7 +1,7 @@
 ﻿using HAG.Domain.Model.Mission;
 using HAG.Domain.Model.Request;
 using HAG.Domain.Model.Response;
-using HAG.Service.Assistance;
+using HAG.Interface;
 using HAG.Service.Shop;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,16 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Mission
 {
-    public class MissionBService
+    public class MissionService : IMissionService
     {
         private MissionDataAccess missionDA = new MissionDataAccess();
-        private AssistanceService AssistanceBL = new AssistanceService();
+
+        private readonly IAssistanceService assistanceService;
+        public MissionService(IAssistanceService _assistanceService)
+        {
+            assistanceService = _assistanceService;
+        }
+
         /// <summary>
         /// 建立任務
         /// </summary>
@@ -35,7 +41,7 @@ namespace HAG.Service.Mission
             }
 
             // 檢查會員星星是否足夠
-            var starStatus = AssistanceBL.UpdateMemberStar(request.MemberId, 0 - request.Star);
+            var starStatus = assistanceService.UpdateMemberStar(request.MemberId, 0 - request.Star);
             if(starStatus.StatusCode != 0)
             {
                 // 星星不足 返回錯誤訊息
@@ -107,7 +113,7 @@ namespace HAG.Service.Mission
 
             if (result.MissionCollection != null && result.MissionCollection.Count > 0)
             {
-                var memberList = new AssistanceService().GetMemberListInfo(result.MissionCollection.Select(m => m.MemberId).ToList());
+                var memberList = assistanceService.GetMemberListInfo(result.MissionCollection.Select(m => m.MemberId).ToList());
                 if(memberList != null)
                 {
                     foreach(var mission in result.MissionCollection)

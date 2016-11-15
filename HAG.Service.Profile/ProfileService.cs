@@ -1,8 +1,8 @@
 ﻿using HAG.Domain.Model.Customer;
 using HAG.Domain.Model.Response;
 using HAG.Entity;
+using HAG.Interface;
 using HAG.Manager.Configuration;
-using HAG.Service.Assistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +11,18 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Profile
 {
-    public class ProfileService
+    public class ProfileService : IProfileService
     {
         private ProfileDataAccess profileDA = new ProfileDataAccess();
+
+        /// <summary>
+        /// Assistance Service.
+        /// </summary>
+        private readonly IAssistanceService assistanceService;
+        public ProfileService(IAssistanceService assistance)
+        {
+            assistanceService = assistance;
+        }
 
         /// <summary>
         /// 獲取會員[發起的任務]
@@ -67,7 +76,7 @@ namespace HAG.Service.Profile
                 return null;
             }
 
-            var medalInfoList = new AssistanceService().GetMedalInfo();
+            var medalInfoList = assistanceService.GetMedalInfo();
             var memberMedalInfo = profileDA.GetProfileMemberMedalInfo(new List<string> { memberId });
 
             var response = new List<MemberMedalInfo>();
@@ -118,7 +127,7 @@ namespace HAG.Service.Profile
                 return null;
             }
 
-            var effectInfoList = new AssistanceService().GetEffectInfo();
+            var effectInfoList = assistanceService.GetEffectInfo();
             var membereffectInfo = profileDA.GetMemberEffectInfo(memberId);
 
             var response = new List<MemberEffectInfo>();
