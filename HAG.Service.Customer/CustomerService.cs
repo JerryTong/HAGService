@@ -12,14 +12,10 @@ using System.Threading.Tasks;
 
 namespace HAG.Service.Customer
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
         private CustomerDataAccess customerDA = new CustomerDataAccess();
-        private CustomerService()
-        {
-
-        }
-
+        
         /// <summary>
         /// 會員註冊
         /// </summary>

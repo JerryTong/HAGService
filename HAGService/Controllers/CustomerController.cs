@@ -23,8 +23,7 @@ namespace HAGService.Controllers
         public CustomerController(ICustomerService _customerService, IAssistanceService _assistanceService)
         {
             customerService = _customerService;
-            assistanceService = _assistanceService;
-            
+            assistanceService = _assistanceService;    
         }
 
         /// <summary>
